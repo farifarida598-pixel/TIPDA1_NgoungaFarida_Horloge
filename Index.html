@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horloge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="conteneur-principal">
+
+    <header class="en-tete">
+      <span class="nom-app">HORLOGE</span>
+    </header>
+
+    <main class="carte-horloge">
+
+      <div class="barre-fuseau">
+        <label for="selecteur-fuseau">🌍 Fuseau :</label>
+        <select id="selecteur-fuseau">
+          <option value="Africa/Douala">Douala</option>
+          <option value="America/New_York">New York</option>
+          <option value="Europe/Paris">Paris</option>
+          <option value="Asia/Tokyo">Tokyo</option>
+          <option value="America/Los_Angeles">Los Angeles</option>
+        </select>
+      </div>
+
+      <div class="affichage-heure">
+        <div class="groupe-chiffres">
+          <span class="chiffre" id="chiffre-heures">00</span>
+          <span class="deux-points" id="separateur-1">:</span>
+          <span class="chiffre" id="chiffre-minutes">00</span>
+          <span class="deux-points" id="separateur-2">:</span>
+          <span class="chiffre" id="chiffre-secondes">00</span>
+        </div>
+        <span class="indicateur-ampm" id="indicateur-ampm"></span>
+      </div>
+
+      <div class="affichage-date" id="affichage-date">Chargement...</div>
+
+      <div class="barre-secondes">
+        <div class="remplissage-secondes" id="remplissage-secondes"></div>
+      </div>
+
+      <div class="zone-controles">
+        <button class="bouton" id="bouton-format">
+          <span id="libelle-format">24H → 12H</span>
+        </button>
+        <button class="bouton" id="bouton-date">
+          📅 Date
+        </button>
+        <button class="bouton" id="bouton-alarme">
+          ⏰ Alarme
+        </button>
+      </div>
+
+      <div class="section-alarme" id="section-alarme" style="display:none;">
+        <div class="ligne-alarme">
+          <input type="time" id="saisie-alarme" class="champ-alarme" />
+          <button class="bouton bouton-valider" id="bouton-definir-alarme">Définir</button>
+          <button class="bouton bouton-effacer" id="bouton-effacer-alarme">✕</button>
+        </div>
+        <div class="statut-alarme" id="statut-alarme"></div>
+      </div>
+    </main>
+  </div>
+
+  <div class="popup-alarme" id="popup-alarme">
+    <div class="icone-popup">⏰</div>
+    <div class="message-popup">ALARME !</div>
+    <button onclick="dismissAlarm()">OK</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

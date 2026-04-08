@@ -1,0 +1,383 @@
+:root {
+  --couleur-fond: #050b14;
+  --couleur-carte: #0d1b2a;
+  --bordure-carte: rgba(0, 200, 255, 0.15);
+  --accent-bleu: #00c8ff;
+  --accent-violet: #7b2fff;
+  --texte-principal: #e8f4fd;
+  --texte-discret: rgba(232, 244, 253, 0.45);
+  --fond-chiffre: #091520;
+  --fond-bouton: rgba(0, 200, 255, 0.08);
+  --fond-bouton-survol: rgba(0, 200, 255, 0.2);
+  --lueur: 0 0 30px rgba(0, 200, 255, 0.3);
+  --police-mono: 'Share Tech Mono', monospace;
+  --police-interface: 'Rajdhani', sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--couleur-fond);
+  color: var(--texte-principal);
+  font-family: var(--police-interface);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.conteneur-principal {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 760px;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.en-tete {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 0.15em;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--texte-discret);
+}
+
+.nom-app {
+  letter-spacing: 0.15em;
+}
+
+.carte-horloge {
+  width: 100%;
+  background: var(--couleur-carte);
+  border: 1px solid var(--bordure-carte);
+  border-radius: 24px;
+  padding: 36px 28px 28px;
+  box-shadow: var(--lueur), 0 40px 80px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  animation: entree-carte 0.8s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+@keyframes entree-carte {
+  from { opacity: 0; transform: translateY(30px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.barre-fuseau {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--texte-discret);
+  width: 100%;
+}
+
+.barre-fuseau select {
+  background: var(--fond-chiffre);
+  color: var(--texte-principal);
+  border: 1px solid var(--bordure-carte);
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-family: var(--police-interface);
+  font-size: 0.85rem;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.barre-fuseau select:focus {
+  border-color: var(--accent-bleu);
+}
+
+.affichage-heure {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  position: relative;
+}
+
+.groupe-chiffres {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chiffre {
+  font-family: var(--police-mono);
+  font-size: clamp(3.5rem, 14vw, 6rem);
+  color: #fff;
+  background: var(--fond-chiffre);
+  border-radius: 12px;
+  padding: 8px 12px;
+  min-width: 2ch;
+  text-align: center;
+  border: 1px solid rgba(0,200,255,0.08);
+  text-shadow: 0 0 20px rgba(0,200,255,0.6), 0 0 40px rgba(0,200,255,0.2);
+  transition: transform 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Reflet en haut du chiffre */
+.chiffre::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 50%;
+  background: rgba(255,255,255,0.03);
+  border-radius: 12px 12px 0 0;
+  pointer-events: none;
+}
+
+/* Séparateur ":" clignotant */
+.deux-points {
+  font-family: var(--police-mono);
+  font-size: clamp(3rem, 12vw, 5.2rem);
+  color: var(--accent-bleu);
+  text-shadow: 0 0 15px var(--accent-bleu);
+  animation: clignotement-separateur 1s step-start infinite;
+  user-select: none;
+  line-height: 1;
+  align-self: center;
+  padding-bottom: 4px;
+}
+
+@keyframes clignotement-separateur {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.1; }
+}
+
+.indicateur-ampm {
+  font-family: var(--police-interface);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent-bleu);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  align-self: flex-start;
+  margin-top: 14px;
+  min-width: 28px;
+}
+
+.affichage-date {
+  font-family: var(--police-interface);
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--texte-discret);
+  letter-spacing: 0.08em;
+  text-transform: capitalize;
+  text-align: center;
+  transition: opacity 0.4s;
+}
+
+.barre-secondes {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.remplissage-secondes {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-violet), var(--accent-bleu));
+  border-radius: 99px;
+  transition: width 0.9s linear;
+  box-shadow: 0 0 8px var(--accent-bleu);
+}
+
+.zone-controles {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.bouton {
+  background: var(--fond-bouton);
+  color: var(--accent-bleu);
+  border: 1px solid rgba(0,200,255,0.25);
+  border-radius: 10px;
+  padding: 9px 18px;
+  font-family: var(--police-interface);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+
+.bouton:hover {
+  background: var(--fond-bouton-survol);
+  box-shadow: 0 0 14px rgba(0,200,255,0.2);
+  transform: translateY(-1px);
+}
+
+.bouton:active {
+  transform: translateY(0);
+}
+
+.bouton-valider {
+  background: rgba(0,200,255,0.15);
+}
+
+.bouton-effacer {
+  background: rgba(255,80,80,0.1);
+  color: #ff6060;
+  border-color: rgba(255,80,80,0.25);
+}
+
+.bouton-effacer:hover {
+  background: rgba(255,80,80,0.2);
+  box-shadow: 0 0 14px rgba(255,80,80,0.15);
+}
+
+.section-alarme {
+  width: 100%;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid var(--bordure-carte);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: glissement-bas 0.3s ease;
+}
+
+@keyframes glissement-bas {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ligne-alarme {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.champ-alarme {
+  background: var(--fond-chiffre);
+  color: var(--texte-principal);
+  border: 1px solid var(--bordure-carte);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: var(--police-mono);
+  font-size: 1.1rem;
+  outline: none;
+  flex: 1;
+  min-width: 130px;
+  transition: border-color 0.3s;
+}
+
+.champ-alarme:focus {
+  border-color: var(--accent-bleu);
+}
+
+.statut-alarme {
+  font-size: 0.82rem;
+  color: var(--accent-bleu);
+  letter-spacing: 0.05em;
+  min-height: 18px;
+}
+
+.popup-alarme {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: #0d1b2a;
+  border: 2px solid var(--accent-bleu);
+  border-radius: 20px;
+  padding: 40px 50px;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(0,200,255,0.4);
+  z-index: 100;
+  display: none;
+  animation: apparition-popup 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.popup-alarme.actif {
+  display: flex;
+}
+
+@keyframes apparition-popup {
+  from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+  to   { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+.icone-popup {
+  font-size: 3rem;
+  animation: oscillation 0.5s infinite alternate;
+}
+
+@keyframes oscillation {
+  from { transform: rotate(-10deg); }
+  to   { transform: rotate(10deg); }
+}
+
+.message-popup {
+  font-family: var(--police-mono);
+  font-size: 1.8rem;
+  color: var(--accent-bleu);
+  text-shadow: 0 0 20px var(--accent-bleu);
+}
+
+.popup-alarme button {
+  margin-top: 8px;
+  background: var(--accent-bleu);
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 30px;
+  font-family: var(--police-interface);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.popup-alarme button:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 480px) {
+  .carte-horloge {
+    padding: 24px 16px 20px;
+    gap: 16px;
+  }
+  .chiffre {
+    font-size: clamp(2.6rem, 18vw, 4rem);
+    padding: 6px 8px;
+    border-radius: 8px;
+  }
+  .deux-points {
+    font-size: clamp(2.2rem, 15vw, 3.5rem);
+  }
+  .zone-controles {
+    gap: 8px;
+  }
+  .bouton {
+    padding: 8px 14px;
+    font-size: 0.78rem;
+  }
+}
